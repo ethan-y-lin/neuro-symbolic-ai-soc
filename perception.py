@@ -205,8 +205,9 @@ class PerceptionPipe():
         
         for obj, center in objects:
             shape, color = self.extract_attributes(obj, prob, debug)
-            scene_df = scene_df.append({'shape': shape, 
+            new_row = pd.DataFrame([{'shape': shape, 
                                         'color': color, 
-                                        'position': center}, ignore_index=True)
+                                        'position': center}])
+            scene_df = scene_df.append(new_row, ignore_index=True)
         
         return scene_df
