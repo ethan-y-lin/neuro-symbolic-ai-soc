@@ -49,14 +49,15 @@ def build_sample():
     for color_id, color in enumerate(colors):  
         center = center_generate(objects)
         if random.random()<0.5:
+            print(center)
             # Define the angle of rotation
             angle = random.uniform(0, 360)  # Random angle between 0 and 360 degrees
             
             # Get the rotation matrix
-            rotation_matrix = cv2.getRotationMatrix2D(center, angle, 1.0)
+            rotation_matrix = cv2.getRotationMatrix2D((center[0], center[1]), angle, 1.0)
                         # Apply rotation to the rectangle points
             rotated_rect = cv2.transform(np.array([start[0], start[1], end[0], end[1]]), rotation_matrix)[0]
-            
+            print(rotated_rect)
             # Draw the rotated rectangle (using a polygon to simulate rotation)
             cv2.fillPoly(img, [rotated_rect.astype(np.int32)], color)
             start = (center[0]-size, center[1]-size)
