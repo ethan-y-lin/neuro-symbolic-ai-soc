@@ -241,20 +241,21 @@ def build_dataset(num_samples, data_dir, prefix='train'):
         for obj in objects:
             # Get object params
             color_id, shape, bbox = obj[0], shape_map[obj[2]], obj[3]
-            
-            img_det_df = pd.concat([img_det_df, {'filename': filename, 
+            new_row = pd.DataFrame([{'filename': filename, 
                                             'width': img_size, 
                                             'height': img_size, 
                                             'class': 'obj', 
                                             'xmin': bbox[0], 'ymin': bbox[1],
-                                            'xmax': bbox[2], 'ymax': bbox[3]}], ignore_index=True)
+                                            'xmax': bbox[2], 'ymax': bbox[3]}])
+            img_det_df = pd.concat([img_det_df, new_row], ignore_index=True)
         
         # Append text data to dataframe
         for answer, query, program in zip(answers, queries, programs):
-            que2prog_df = pd.concat([que2prog_df, {'filename': filename,
+            new_row = pd.DataFrame([{'filename': filename,
                                               'answer': answer,
                                               'query_text': query,
-                                              'program_text': program}], ignore_index=True)
+                                              'program_text': program}])
+            que2prog_df = pd.concat([que2prog_df, new_row], ignore_index=True)
     
     # Save to csv files
     img_det_df.to_csv(os.path.join(data_dir, f'{prefix}_img_det.csv'), index=False)
