@@ -242,7 +242,7 @@ def build_dataset(num_samples, data_dir, prefix='train'):
             # Get object params
             color_id, shape, bbox = obj[0], shape_map[obj[2]], obj[3]
             
-            img_det_df = img_det_df.append({'filename': filename, 
+            img_det_df = img_det_df.concat({'filename': filename, 
                                             'width': img_size, 
                                             'height': img_size, 
                                             'class': 'obj', 
@@ -251,7 +251,7 @@ def build_dataset(num_samples, data_dir, prefix='train'):
         
         # Append text data to dataframe
         for answer, query, program in zip(answers, queries, programs):
-            que2prog_df = que2prog_df.append({'filename': filename,
+            que2prog_df = que2prog_df.concat({'filename': filename,
                                               'answer': answer,
                                               'query_text': query,
                                               'program_text': program}, ignore_index=True)
