@@ -208,6 +208,6 @@ class PerceptionPipe():
             new_row = pd.DataFrame([{'shape': shape, 
                                         'color': color, 
                                         'position': center}])
-            scene_df = scene_df.append(new_row, ignore_index=True)
+            scene_df = pd.concat([scene_df, new_row], ignore_index=True)
         
         return scene_df
